@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Utilisateur;
+use App\Form\UtilisateurType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as Encoder;
 
 class UtilisateurController extends AbstractController
 {
@@ -14,6 +20,34 @@ class UtilisateurController extends AbstractController
     {
         return $this->render('utilisateur/index.html.twig', [
             'controller_name' => 'UtilisateurController',
+        ]);
+    }
+    
+    /**
+     * @Route("/ajouter", name="membre_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, Encoder $encoder): Response
+    {
+        $membre = new Utilisateur();
+        $form = $this->createForm(UtilisateurType::class, $membre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            // $mdp = $membre->getPassword();
+            $mdp = $form->get("password")->getData();
+            $mdp = $encoder->encodePassword($membre, $mdp);
+            $membre->setPassword($mdp);
+            $membre->setInscription(new DateTime());
+            $entityManager->persist($membre);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('utilisateur');
+        }
+
+        return $this->render('utilisateur/new.html.twig', [
+            'membre' => $membre,
+            'form' => $form->createView(),
         ]);
     }
 }
