@@ -3,5 +3,5 @@
     {{ form_row(form.email) }}
     {{ form_row(form.password, {"attr": { "required": membre.id is null } }) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    <button class="btn font-weight-bold form-control bg-primary mt-3">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
