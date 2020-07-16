@@ -13,8 +13,10 @@ class OfficeController extends AbstractController
      */
     public function index()
     {
-        if (in_array('ROLE_ADMIN',$this->getUser()->getRoles()) || in_array('ROLE_MOD', $this->getUser()->getRoles())) {
-            return $this->redirectToRoute('back');
+        if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_MOD')) {
+            return $this->render('office/back/index.html.twig', [
+                'controller_name' => 'BackOfficeController',
+            ]);
         }
         return $this->redirectToRoute('accueil');
     }
@@ -24,9 +26,12 @@ class OfficeController extends AbstractController
      */
     public function back()
     {
-        return $this->render('office/back/index.html.twig', [
-            'controller_name' => 'BackOfficeController',
-        ]);
+        if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_MOD')) {
+            return $this->render('office/back/index.html.twig', [
+                'controller_name' => 'BackOfficeController',
+            ]);
+        }
+        return $this->redirectToRoute('accueil');
     }
 
     /**

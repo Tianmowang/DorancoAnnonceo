@@ -48,12 +48,10 @@
             <tr>
                 <td><a href="{{ path('membre_edit_mdp', {'id': app.user.id}) }}"><i class="fa fa-edit"></i> Changer de mot de passe</a></td>
             </tr>
-            <div class="">
-                <tr>
-                    <td>
-                        {{ include('utilisateur/_delete_form.html.twig') }}
-                </tr>
-            </div>
+            <tr>
+                <td>
+                    {{ include('utilisateur/_delete_form.html.twig') }}
+            </tr>
         </table>
         
     </div>

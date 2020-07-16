@@ -68,7 +68,7 @@ class UtilisateurController extends AbstractController
                 'form' => $form->createView(),
             ]);
         
-        } elseif (in_array("ROLE_ADMIN",$this->getUser()->getRoles())) {
+        } elseif ($this->isGranted('ROLE_ADMIN')) {
             $form = $this->createForm(AdminType::class, $membre);
             $form->handleRequest($request);
             
