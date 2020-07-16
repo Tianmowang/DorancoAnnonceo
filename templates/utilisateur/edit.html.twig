@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Membre{% endblock %}
+{% block title %}modifier Membre{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
+    <h1>modifier Membre</h1>
 
-    {{ include('utilisateur/_form.html.twig') }}
+    {{ include('utilisateur/_form.html.twig', {'button_label': 'Modifier'}) }}
 
     <a href="{{ path('utilisateur') }}"><i class="fa fa-reply"></i>Retour à la liste</a>
+
 {% endblock %}

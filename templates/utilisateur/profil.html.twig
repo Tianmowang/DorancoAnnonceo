@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<h1>Profil du membre {{ app.user.pseudo }}</h1>
+
+<div class="row">
+    <div class="col-6">
+        <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ app.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Password</th>
+                        <td>***</td>
+                    </tr>
+                    <tr>
+                        <th>Pseudo</th>
+                        <td>{{ app.user.pseudo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ app.user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ app.user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telephone</th>
+                        <td>{{ app.user.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date d'inscription</th>
+                        <td>{{ app.user.inscription | date("d/m/Y") }}</td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
+    <div class="ml-auto col-3">
+        <table>
+            <tr>
+                <td><a href="{{ path('membre_edit', {'id': app.user.id}) }}"><i class="fa fa-edit"></i> Modifier</a></td>
+            </tr>
+            <div>
+                <tr>
+                    <td>
+                        {{ include('utilisateur/_delete_form.html.twig') }}
+                        {# <a href="{{ path('membre_delete', {'id': app.user.id}) }}"><i class="fas fa-trash-alt"></i>Delete</a></td> #}
+                </tr>
+            </div>
+        </table>
+        
+    </div>
+</div>
+{% endblock %}

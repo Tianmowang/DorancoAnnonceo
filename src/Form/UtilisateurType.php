@@ -20,7 +20,12 @@ class UtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, ["label" => "E-mail"])
+            ->add('email', EmailType::class, [
+                "label" => "E-mail",
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe",
                 /* "constraints" => [
@@ -32,6 +37,9 @@ class UtilisateurType extends AbstractType
                 "help" => "Le mot de passe doit comporter entre 6 et 10 caractères, une minuscule, une majuscule, un chiffre, un caractères spécial",
                 "mapped" => false,
                 "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ])
             ->add('pseudo', TextType::class, [
                 "constraints" => [
@@ -41,6 +49,9 @@ class UtilisateurType extends AbstractType
                         "minMessage" => "Le pseudo doit comporter un minimum {{ limit }} caractères",
                         "maxMessage" => "Le pseudo ne doit pas dépasser {{ limit }} caractères"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('nom', TextType::class, [
@@ -51,6 +62,9 @@ class UtilisateurType extends AbstractType
                         "minMessage" => "Le nom doit comporter un minimum {{ limit }} caractères",
                         "maxMessage" => "Le nom ne doit pas dépasser {{ limit }} caractères"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('prenom', TextType::class, [
@@ -61,6 +75,9 @@ class UtilisateurType extends AbstractType
                         "minMessage" => "Le prénom doit comporter un minimum {{ limit }} caractères",
                         "maxMessage" => "Le prénom ne doit pas dépasser {{ limit }} caractères"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('telephone', TelType::class, [
@@ -69,6 +86,9 @@ class UtilisateurType extends AbstractType
                         "pattern" => "/^[0-9]{10}$/",
                         "message" => "Le telephone ne doit comporter que 5 chiffres"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
         ;

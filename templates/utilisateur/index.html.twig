@@ -1,43 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil{% endblock %}
+{% block title %}Liste Membre{% endblock %}
 
 {% block body %}
-<h1>Profil du membre {{ app.user.pseudo }}</h1>
+    <h1>Liste Membre</h1>
 
-<div class="row">
-    <div class="col-6">
-        <table class="table">
-                <tbody>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ app.user.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>Password</th>
-                        <td>***</td>
-                    </tr>
-                    <tr>
-                        <th>Pseudo</th>
-                        <td>{{ app.user.pseudo }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nom</th>
-                        <td>{{ app.user.nom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Prénom</th>
-                        <td>{{ app.user.prenom }}</td>
-                    </tr>
-                    <tr>
-                        <th>Telephone</th>
-                        <td>{{ app.user.telephone }}</td>
-                    </tr>
-                    <tr>
-                        <th>Date d'inscription</th>
-                        <td>{{ app.user.inscription | date }}</td>
-                    </tr>
-                </tbody>
-        </table>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Pseudo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Civilite</th>
+                <th>Ville</th>
+                <th>Code_postal</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for membre in membres %}
+            <tr>
+                <td>{{ membre.id }}</td>
+                <td>{{ membre.email }}</td>
+                <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
+                <td>{{ membre.password }}</td>
+                <td>{{ membre.pseudo }}</td>
+                <td>{{ membre.nom }}</td>
+                <td>{{ membre.prenom }}</td>
+                <td>{{ membre.civilite }}</td>
+                <td>{{ membre.ville }}</td>
+                <td>{{ membre.codePostal }}</td>
+                <td>{{ membre.adresse }}</td>
+                <td>
+                    <a href="{{ path('membre_show', {'id': membre.id}) }}">show</a>
+                    <a href="{{ path('membre_edit', {'id': membre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('membre_new') }}">Create new</a>
 {% endblock %}
