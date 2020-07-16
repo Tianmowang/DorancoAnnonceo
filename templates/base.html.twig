@@ -5,13 +5,17 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/cerulean/bootstrap.min.css" rel="stylesheet">
     
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>Annonceo - {% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% include "partials/header.html.twig" %}
     
-        {% block body %}{% endblock %}
+        <div class="container">
+            <div class="jumbotron">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
         {% block javascripts %}{% endblock %}
     
     

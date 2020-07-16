@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\AdminType;
 use App\Form\UtilisateurType;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,25 +30,53 @@ class UtilisateurController extends AbstractController
     public function new(Request $request, Encoder $encoder): Response
     {
         $membre = new Utilisateur();
-        $form = $this->createForm(UtilisateurType::class, $membre);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            // $mdp = $membre->getPassword();
-            $mdp = $form->get("password")->getData();
-            $mdp = $encoder->encodePassword($membre, $mdp);
-            $membre->setPassword($mdp);
-            $membre->setInscription(new DateTime());
-            $entityManager->persist($membre);
-            $entityManager->flush();
+        if ($this->getUser() == null) {
+            $form = $this->createForm(UtilisateurType::class, $membre);
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                // $mdp = $membre->getPassword();
+                $mdp = $form->get("password")->getData();
+                $mdp = $encoder->encodePassword($membre, $mdp);
+                $membre->setPassword($mdp);
+                $membre->setInscription(new DateTime());
+                $membre->setRoles(["ROLE_USER"]);
+                $entityManager->persist($membre);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('utilisateur');
+                return $this->redirectToRoute('utilisateur');
+            }
+
+            return $this->render('utilisateur/new.html.twig', [
+                'membre' => $membre,
+                'form' => $form->createView(),
+            ]);
+        
+        } elseif (in_array("ROLE_ADMIN",$this->getUser()->getRoles())) {
+            $form = $this->createForm(AdminType::class, $membre);
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                // $mdp = $membre->getPassword();
+                $mdp = $form->get("password")->getData();
+                $mdp = $encoder->encodePassword($membre, $mdp);
+                $membre->setPassword($mdp);
+                $membre->setInscription(new DateTime());
+                $entityManager->persist($membre);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('utilisateur');
+            }
+
+            return $this->render('utilisateur/new.html.twig', [
+                'membre' => $membre,
+                'form' => $form->createView(),
+            ]);
         }
-
-        return $this->render('utilisateur/new.html.twig', [
-            'membre' => $membre,
-            'form' => $form->createView(),
-        ]);
+        
+        return $this->redirectToRoute('utilisateur');
     }
 }
