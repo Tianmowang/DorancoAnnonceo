@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\AdminType;
+use App\Form\ModifierType;
+use App\Form\PasswordsType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use DateTime;
@@ -98,7 +100,27 @@ class UtilisateurController extends AbstractController
     public function edit(Request $request, Utilisateur $membre, Encoder $encoder): Response
     {
 
-        $form = $this->createForm(UtilisateurType::class, $membre);
+        $form = $this->createForm(ModifierType::class, $membre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('utilisateur');
+        }
+        return $this->render('utilisateur/edit.html.twig', [
+            'membre' => $membre,
+            'type' => 0,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/password", name="membre_edit_mdp", methods={"GET","POST"})
+     */
+    public function editMdp(Request $request, Utilisateur $membre, Encoder $encoder): Response
+    {
+
+        $form = $this->createForm(PasswordsType::class, $membre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,6 +133,7 @@ class UtilisateurController extends AbstractController
         }
         return $this->render('utilisateur/edit.html.twig', [
             'membre' => $membre,
+            'type' => 1,
             'form' => $form->createView(),
         ]);
     }
