@@ -22,19 +22,6 @@ class OfficeController extends AbstractController
     }
 
     /**
-     * @Route("/back-office", name="back")
-     */
-    public function back()
-    {
-        if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_MOD')) {
-            return $this->render('office/back/index.html.twig', [
-                'controller_name' => 'BackOfficeController',
-            ]);
-        }
-        return $this->redirectToRoute('accueil');
-    }
-
-    /**
      * @Route("/front-office", name="front")
      */
     public function front()

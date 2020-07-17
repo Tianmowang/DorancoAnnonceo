@@ -3,18 +3,31 @@
 {% block title %}Hello CategorieController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Liste Categorie</h1>
+    <a href="{{ path('categorie_new') }}" class="h1"><i class="fas fa-plus-circle fa-1x"></i> Créer</a>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/xampp/htdocs/Annonceo/src/Controller/CategorieController.php'|file_link(0) }}">src/Controller/CategorieController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/xampp/htdocs/Annonceo/templates/categorie/index.html.twig'|file_link(0) }}">templates/categorie/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.nom }}</td>
+                <td>
+                    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}" class="btn btn-link"><i class="fa fa-edit"></i></a>
+                    {{ include('categorie/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -23,9 +23,12 @@ class UtilisateurController extends AbstractController
      */
     public function index()
     {
-        return $this->render('utilisateur/profil.html.twig', [
-            'controller_name' => 'UtilisateurController',
-        ]);
+        if ($this->isGranted('ROLE_USER')) {
+            return $this->render('utilisateur/profil.html.twig', [
+                'controller_name' => 'UtilisateurController',
+            ]);
+        }
+        return $this->redirectToRoute('accueil');
     }
     
     /**
@@ -33,9 +36,12 @@ class UtilisateurController extends AbstractController
      */
     public function utilisateur(UtilisateurRepository $utilisateurRepository)
     {
-        return $this->render('utilisateur/index.html.twig', [
-            'membres' => $utilisateurRepository->findAll(),
-        ]);
+        if ($this->isGranted('IS_AUTHENCATED_FULLY') && $this->isGranted('ROLE_ADMIN')) {
+            return $this->render('utilisateur/index.html.twig', [
+                'membres' => $utilisateurRepository->findAll(),
+            ]);
+        }
+        return $this->redirectToRoute('accueil');
     }
     
     /**
