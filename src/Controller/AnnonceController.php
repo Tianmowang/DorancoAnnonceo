@@ -93,4 +93,18 @@ class AnnonceController extends AbstractController
         }
         return $this->redirectToRoute('accueil');
     }
+
+    /**
+     * @Route("/annonce/fiche/{id}", name="fiche_annonce", methods={"GET"})
+     */
+    public function fiche(AnnonceRepository $ar, $id): Response
+    {
+        $annonce = $ar->findOneBy([ "id" => $id ]);
+        if($annonce){
+            return $this->render('annonce/fiche.html.twig', [ 'annonce' => $annonce ]);
+        }
+        else {
+            return $this->redirectToRoute("accueil");
+        }
+    }
 }

@@ -20,6 +20,23 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
     // /**
+    //  * @return Produit[] Returns an array of Produit objects
+    //  */
+    public function findRecent()
+    {
+        // SELECT p.*
+        // FROM produit p
+        // WHERE p.titre LIKE "%mot%"
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.titre', 'ASC')
+            ->addOrderBy("p.categorie")
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // /**
     //  * @return Annonce[] Returns an array of Annonce objects
     //  */
     /*

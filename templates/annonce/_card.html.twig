@@ -1,0 +1,10 @@
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header"><h3 class="card-title">{{ annonce.titre }}</h3></div>
+    <div class="card-body">
+      <h4 class="card-title"><p class="card-text">Catégorie : {{ annonce.categorie.nom }}</p></h4>
+      <p class="card-title">Description : {{ annonce.description }}</p>
+      <p class="card-text">Prix : {{ annonce.prix }} €</p>
+      <p class="card-text">Crée le : {{ annonce.creation | date("d/m/Y") }}</p>
+      <a href="{{ path("fiche_annonce", { id: annonce.id }) }}" class="btn btn-primary">Voir</a>
+    </div>
+  </div>

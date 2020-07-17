@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+   <div class="card" style="margin-right: 0;margin-left: 0;">
+        <div class="card-body">
+            <h5 class="card-title">Nom : {{ annonce.titre }}</h5>
+            <p class="card-text">Catégorie : {{ annonce.categorie.nom }}</p>
+            <p class="card-text">Description : {{ annonce.description }}</p>
+            <p class="card-text">Prix : {{ annonce.prix }} €</p>
+            <p class="card-text">Adresse : {{ annonce.adresse ~ ', ' ~ annonce.ville ~ ' ' ~ annonce.codePostal }}</p>
+            <p class="card-text">Crée le : {{ annonce.creation | date("d/m/Y") }}</p>
+        </div>
+    </div>
+        
+{% endblock body %}
