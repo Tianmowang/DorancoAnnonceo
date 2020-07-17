@@ -10,10 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/categorie")
+ */
 class CategorieController extends AbstractController
 {
     /**
-     * @Route("/categorie", name="categorie")
+     * @Route("/", name="categorie")
      */
     public function index(CategorieRepository $categorieRepository)
     {
@@ -26,7 +30,7 @@ class CategorieController extends AbstractController
     }
     
     /**
-     * @Route("/categorie/ajouter", name="categorie_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="categorie_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {

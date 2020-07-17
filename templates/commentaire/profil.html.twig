@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnnonceController!{% endblock %}
+
+{% block body %}
+<h1>Liste commentaire</h1>
+<a href="{{ path('commentaire_new') }}" class="h1"><i class="fas fa-plus-circle fa-1x"></i> Créer</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Auteur</th>
+            <th>Categorie</th>
+            <th>Adresse</th>
+            <th>Prix</th>
+            <th>Date de creation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for commentaire in app.user.commentaires %}
+        <tr>
+            <td>{{ commentaire.id }}</td>
+            <td>{{ commentaire.titre }}</td>
+            <td>{{ commentaire.description }}</td>
+            <td>{{ commentaire.auteur.pseudo }}</td>
+            <td>{{ commentaire.categorie.nom }}</td>
+            <td>{{ commentaire.adresse ~ ' ' ~ commentaire.codePostal ~ ' ' ~ commentaire.ville }}</td>
+            <td>{{ commentaire.prix }} €</td>
+            <td>{{ commentaire.creation | date('d/m/Y') }}</td>
+            <td>
+                <a href="{{ path('commentaire_edit', {'id': commentaire.id}) }}" class="btn btn-link"><i class="fa fa-edit"></i></a>
+                {{ include('commentaire/_delete_form.html.twig') }}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -3,18 +3,35 @@
 {% block title %}Hello CommentaireController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>Liste Membre</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/xampp/htdocs/Annonceo/src/Controller/CommentaireController.php'|file_link(0) }}">src/Controller/CommentaireController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/xampp/htdocs/Annonceo/templates/commentaire/index.html.twig'|file_link(0) }}">templates/commentaire/index.html.twig</a></code></li>
-    </ul>
-</div>
+<table class="table w-auto p-3">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Auteur</th>
+            <th>Annonce</th>
+            <th>Commentaire</th>
+            <th>Inscription</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for commentaire in commentaires %}
+        <tr>
+            <td>{{ commentaire.id }}</td>
+            <td>{{ commentaire.auteur.pseudo }}</td>
+            <td>{{ commentaire.annonce.titre }}</td>
+            <td>{{ commentaire.commentaire }}</td>
+            <td>{{ commentaire.creation | date('d/m/Y') }}</td>
+                {{ include('commentaire/_delete_form.html.twig') }}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="12">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

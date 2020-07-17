@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Membre{% endblock %}
+
+{% block body %}
+    <a href="{{ path('accueil') }}" style="font-size: 20px;"><i class="fas fa-home fa-2x"></i></a>
+    <h1>Inscription</h1>
+
+    {{ include('utilisateur/_form.html.twig') }}
+
+    <a href="{{ path('app_login') }}" style="font-size: 20px;"><i class="fas fa-sign-in-alt fa-1x"></i> Sign in</a>
+{% endblock %}

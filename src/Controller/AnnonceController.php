@@ -12,10 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/**
+ * @Route("/annonce")
+ */
 class AnnonceController extends AbstractController
 {
     /**
-     * @Route("/annonces", name="annonce")
+     * @Route("s/", name="annonce")
      */
     public function index(AnnonceRepository $ar)
     {
@@ -25,7 +29,7 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonce", name="annonce_profil")
+     * @Route("/", name="annonce_profil")
      */
     public function profil(AnnonceRepository $ar)
     {
@@ -33,7 +37,7 @@ class AnnonceController extends AbstractController
     }
     
     /**
-     * @Route("/annonce/ajouter", name="annonce_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="annonce_new", methods={"GET","POST"})
      */
     public function new(Request $request, CategorieRepository $cr): Response
     {
@@ -103,7 +107,7 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonce/fiche/{id}", name="fiche_annonce", methods={"GET"})
+     * @Route("/fiche/{id}", name="fiche_annonce", methods={"GET"})
      */
     public function fiche(AnnonceRepository $ar, $id): Response
     {

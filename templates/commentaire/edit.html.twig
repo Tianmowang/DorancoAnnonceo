@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}modifier Membre{% endblock %}
+
+{% block body %}
+    <h1>modifier Membre</h1>
+
+    {{ include('utilisateur/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('utilisateur') }}"><i class="fa fa-reply"></i>Retour au profil</a>
+
+{% endblock %}
