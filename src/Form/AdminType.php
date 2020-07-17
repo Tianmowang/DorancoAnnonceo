@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -30,6 +31,9 @@ class AdminType extends AbstractType
                 "help" => "Le mot de passe doit comporter entre 6 et 10 caractères, une minuscule, une majuscule, un chiffre, un caractères spécial",
                 "mapped" => false,
                 "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ])
             ->add('pseudo', TextType::class, [
                 "constraints" => [
@@ -39,6 +43,9 @@ class AdminType extends AbstractType
                         "minMessage" => "Le pseudo doit comporter un minimum {{ limit }} caractères",
                         "maxMessage" => "Le pseudo ne doit pas dépasser {{ limit }} caractères"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('nom', TextType::class, [
@@ -49,6 +56,9 @@ class AdminType extends AbstractType
                         "minMessage" => "Le nom doit comporter un minimum {{ limit }} caractères",
                         "maxMessage" => "Le nom ne doit pas dépasser {{ limit }} caractères"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('prenom', TextType::class, [
@@ -59,6 +69,9 @@ class AdminType extends AbstractType
                         "minMessage" => "Le prénom doit comporter un minimum {{ limit }} caractères",
                         "maxMessage" => "Le prénom ne doit pas dépasser {{ limit }} caractères"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('telephone', TelType::class, [
@@ -67,6 +80,9 @@ class AdminType extends AbstractType
                         "pattern" => "/^[0-9]{10}$/",
                         "message" => "Le telephone ne doit comporter que 5 chiffres"
                     ])
+                ],
+                "attr" => [
+                    "class" => "form-control"
                 ]
             ])
             ->add('roles', ChoiceType::class, [
@@ -76,7 +92,10 @@ class AdminType extends AbstractType
                     "Administrateur" => "ROLE_ADMIN"
                 ],
                 "multiple" => true,
-                "expanded" => true
+                "expanded" => true,
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ])
         ;
     }

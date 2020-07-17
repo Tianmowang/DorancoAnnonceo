@@ -26,7 +26,7 @@ class CategorieController extends AbstractController
     }
     
     /**
-     * @Route("/ajouter", name="categorie_new", methods={"GET","POST"})
+     * @Route("/categorie/ajouter", name="categorie_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {

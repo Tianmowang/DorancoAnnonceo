@@ -5,8 +5,10 @@
 {% block body %}
 <div class="row">
     <div class="mr-auto col-5">
-        
-        <a href="{{ path('categorie') }}">Categories</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('categorie') }}">Categories</a>
+            <a href="{{ path('utilisateurs') }}">Utilisateurs</a>
+        {% endif %}
         <a href="{{ path('annonce') }}">Annonces</a>
         
     </div>

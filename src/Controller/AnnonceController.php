@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnnonceController extends AbstractController
 {
     /**
-     * @Route("/annonce", name="annonce")
+     * @Route("/annonces", name="annonce")
      */
     public function index(AnnonceRepository $ar)
     {
@@ -23,9 +23,17 @@ class AnnonceController extends AbstractController
             'annonces' => $ar->findAll(),
         ]);
     }
+
+    /**
+     * @Route("/annonce", name="annonce_profil")
+     */
+    public function profil(AnnonceRepository $ar)
+    {
+        return $this->render('annonce/profil.html.twig');
+    }
     
     /**
-     * @Route("/ajouter", name="annonce_new", methods={"GET","POST"})
+     * @Route("/annonce/ajouter", name="annonce_new", methods={"GET","POST"})
      */
     public function new(Request $request, CategorieRepository $cr): Response
     {

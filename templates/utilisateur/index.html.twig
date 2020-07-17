@@ -5,20 +5,18 @@
 {% block body %}
     <h1>Liste Membre</h1>
 
-    <table class="table">
+    <a href="{{ path('membre_new') }}" class="h3"><i class="fas fa-plus-circle fa-1x"></i> Create new</a>
+    <table class="table w-auto p-3">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Pseudo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
-                <th>Civilite</th>
-                <th>Ville</th>
-                <th>Code_postal</th>
-                <th>Adresse</th>
+                <th>Tel</th>
+                <th>Inscription</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -28,17 +26,13 @@
                 <td>{{ membre.id }}</td>
                 <td>{{ membre.email }}</td>
                 <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
-                <td>{{ membre.password }}</td>
                 <td>{{ membre.pseudo }}</td>
                 <td>{{ membre.nom }}</td>
                 <td>{{ membre.prenom }}</td>
-                <td>{{ membre.civilite }}</td>
-                <td>{{ membre.ville }}</td>
-                <td>{{ membre.codePostal }}</td>
-                <td>{{ membre.adresse }}</td>
-                <td>
-                    <a href="{{ path('membre_show', {'id': membre.id}) }}">show</a>
-                    <a href="{{ path('membre_edit', {'id': membre.id}) }}">edit</a>
+                <td>{{ membre.telephone }}</td>
+                <td>{{ membre.inscription | date('d/m/Y') }}</td>
+                <td><a href="{{ path('membre_edit', {'id': app.user.id}) }}" class="btn btn-primary form-control"><i class="fa fa-edit"></i> Modifier</a>
+                    {{ include('utilisateur/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -48,6 +42,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('membre_new') }}">Create new</a>
 {% endblock %}

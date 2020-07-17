@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<h1>Profil du membre {{ app.user.pseudo }}</h1>
+
+<div class="row">
+    <div class="col-6">
+        <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ app.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Password</th>
+                        <td>***</td>
+                    </tr>
+                    <tr>
+                        <th>Pseudo</th>
+                        <td>{{ app.user.pseudo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ app.user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ app.user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telephone</th>
+                        <td>{{ app.user.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date d'inscription</th>
+                        <td>{{ app.user.inscription | date("d/m/Y") }}</td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
+    <div class="ml-auto col-6">
+        <div class="row">
+            <div>
+                <h2>Liste de mes annonces</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Catégorie</th>
+                            <th>Prix</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for annonce in app.user.annonces %}
+                        <tr>
+                            <td>{{ annonce.creation ? annonce.creation|date('d/m/y H:i:s') : '' }}</td>
+                            <td>{{ annonce.categorie.nom }}</td>
+                            <td>{{ annonce.prix }}</td>
+                            <td>
+                                <a href="{{ path('fiche_annonce', {'id': annonce.id}) }}"><i class="fa fa-file"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Aucune annonce</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <table class="ml-auto">
+                <tr>
+                    <td><a href="{{ path('membre_edit', {'id': app.user.id}) }}" class="btn btn-primary form-control"><i class="fa fa-edit"></i> Modifier</a></td>
+                </tr>
+                <tr>
+                    <td><a href="{{ path('membre_edit_mdp', {'id': app.user.id}) }}" class="btn btn-primary form-control"><i class="fa fa-edit"></i> Changer de mot de passe</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ include('profil/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+{% endblock %}

@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-    {% for annonce in annonces %}
+    {% for annonce in app.user.annonces %}
         <tr>
             <td>{{ annonce.id }}</td>
             <td>{{ annonce.titre }}</td>

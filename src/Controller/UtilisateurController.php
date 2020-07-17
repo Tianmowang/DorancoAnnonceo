@@ -19,12 +19,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as Enco
 class UtilisateurController extends AbstractController
 {
     /**
-     * @Route("/utilisateur", name="utilisateur")
+     * @Route("/profil", name="utilisateur")
      */
     public function index()
     {
         if ($this->isGranted('ROLE_USER')) {
-            return $this->render('utilisateur/profil.html.twig', [
+            return $this->render('profil/profil.html.twig', [
                 'controller_name' => 'UtilisateurController',
             ]);
         }
@@ -32,11 +32,11 @@ class UtilisateurController extends AbstractController
     }
     
     /**
-     * @Route("/utilisateurs", name="utilisateurs")
+     * @Route("/utilisateur", name="utilisateurs")
      */
     public function utilisateur(UtilisateurRepository $utilisateurRepository)
     {
-        if ($this->isGranted('IS_AUTHENCATED_FULLY') && $this->isGranted('ROLE_ADMIN')) {
+        if ($this->isGranted('ROLE_ADMIN')) {
             return $this->render('utilisateur/index.html.twig', [
                 'membres' => $utilisateurRepository->findAll(),
             ]);
@@ -51,7 +51,7 @@ class UtilisateurController extends AbstractController
     {
         $membre = new Utilisateur();
 
-        if ($this->getUser() == null) {
+        if (is_null($this->getUser())) {
             $form = $this->createForm(UtilisateurType::class, $membre);
             $form->handleRequest($request);
             
